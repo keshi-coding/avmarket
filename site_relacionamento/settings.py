@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 import ssl
 import smtplib
+import os
 
 from pathlib import Path
 
@@ -130,6 +131,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# Arquivos de mídia (imagens, arquivos enviados pelo usuário)
+MEDIA_URL = '/media/'  # URL para acessar arquivos de mídia
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Diretório onde os arquivos de mídia serão armazenados
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

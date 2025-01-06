@@ -1,0 +1,10 @@
+Informações importantes de testes:
+superuser do django
+Usuário: keshi.jp@icloud.com
+Senha: 123456
+
+----
+
+Banco de dados: **relacionamento**.
+Usuário: **postgres**.
+Senha: **SDf872D553#41#%^@@#Dz**.
