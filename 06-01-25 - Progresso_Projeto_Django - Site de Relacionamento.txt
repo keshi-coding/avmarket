@@ -1,0 +1,154 @@
+
+Ultima Atualização 
+Data: 06/01/2025 
+Hora: 15:45
+
+Informações importantes de testes:
+superuser do django
+Usuário: keshi.jp@icloud.com
+Senha: 123456
+
+# Progresso do Projeto Django: Site de Relacionamento
+
+## Resumo do Progresso
+
+1. **Configurações Iniciais:**
+   - Criamos o projeto Django chamado **site-relacionamento**.
+   - Configuramos o banco de dados MySQL inicialmente para ser usado no projeto.
+
+2. **Envio de E-mails:**
+   - Configuramos o envio de e-mails usando SMTP do Gmail.
+   - Validamos a funcionalidade de envio de e-mails para:
+     - Cadastro de usuários.
+     - Confirmação de e-mail.
+     - Recuperação de senha.
+   - Confirmamos que os e-mails chegam corretamente aos destinatários.
+
+3. **Cadastro e Login de Usuários:**
+   - Testamos o processo de:
+     - Cadastro de novos usuários.
+     - Confirmação de e-mail através do link recebido.
+     - Login usando nome de usuário.
+     - Alterar senha com sucesso.
+
+4. **Criação de uma Página Inicial Simples:**
+   - Criamos um app chamado **meu_app**.
+   - Configuramos uma view para exibir a página inicial (**home.html**) que:
+     - Mostra o nome do usuário logado.
+     - Exibe uma mensagem de boas-vindas.
+
+5. **Mudança de Banco de Dados para PostgreSQL:**
+   - No dia 06/01/2025, configuramos o projeto Django para usar o banco de dados PostgreSQL.
+   - Validamos a conexão e aplicamos as migrações com sucesso.
+   - Banco de dados: **relacionamento**.
+   - Usuário: **postgres**.
+   - Senha: **SDf872D553#41#%^@@#Dz**.
+
+6. **Implementação do Modelo Profile:**
+   - Adicionamos o modelo `Profile` para armazenar informações adicionais dos usuários (bio, localização, foto de perfil).
+   - Configuramos sinais para criar automaticamente um perfil sempre que um usuário for registrado.
+   - Registramos o modelo `Profile` no Django Admin, permitindo visualizar e gerenciar perfis pelo painel administrativo.
+
+7. **Testes com Perfis de Usuários:**
+   - Criamos e testamos a funcionalidade de perfis no painel de administração.
+   - Verificamos que os perfis são gerados automaticamente para novos usuários.
+
+---
+
+## Estrutura Atual do Projeto
+
+**Raiz do Projeto:**
+```
+site-relacionamento/
+    manage.py
+    db.sqlite3
+    site_relacionamento/
+        __init__.py
+        asgi.py
+        settings.py
+        urls.py
+        wsgi.py
+    meu_app/
+        __init__.py
+        admin.py
+        apps.py
+        migrations/
+            __init__.py
+            0001_initial.py
+        models.py
+        tests.py
+        views.py
+        signals.py
+        templates/
+            meu_app/
+                home.html
+```
+
+### Descrição dos Arquivos Importantes:
+- **`settings.py`**:
+  - Configurado inicialmente com MySQL, mas alterado para PostgreSQL.
+  - Envio de e-mails via SMTP do Gmail.
+  - Configurado para autenticação via nome de usuário (username).
+
+- **`urls.py` (no diretório principal):**
+  - Inclui as URLs do Django Admin.
+  - Inclui as URLs do **django-allauth** para cadastro e login.
+  - Aponta para a view **home** do app **meu_app** como página inicial.
+
+- **`models.py` (no app `meu_app`):**
+  - Contém o modelo `Profile` para armazenar informações adicionais dos usuários.
+
+- **`signals.py` (no app `meu_app`):**
+  - Configura sinais para criar e salvar perfis automaticamente.
+
+- **`home.html`**:
+  - Template simples que exibe o nome do usuário logado e uma mensagem de boas-vindas.
+
+---
+
+## Funcionalidades Implementadas
+
+1. **Banco de Dados:**
+   - Inicialmente MySQL, agora PostgreSQL configurado e funcional.
+
+2. **Envio de E-mails:**
+   - Cadastro e confirmação de e-mails.
+   - Recuperação de senha.
+
+3. **Autenticação de Usuários:**
+   - Cadastro de usuários com validação por e-mail.
+   - Login usando nome de usuário e senha.
+   - Redefinição de senha via e-mail.
+
+4. **Página Inicial:**
+   - Página inicial para mostrar que o usuário está logado.
+
+5. **Perfis de Usuários:**
+   - Perfis criados automaticamente para novos usuários.
+   - Perfis registrados e gerenciáveis no Django Admin.
+
+---
+
+## Próximos Passos
+
+1. **Planejamento Avançado do Projeto:**
+   - Definir funcionalidades específicas para o site de relacionamento (ex.: sistema de "match", mensagens).
+
+2. **Implementar Páginas de Perfil:**
+   - Criar páginas para cada usuário editar e visualizar seu próprio perfil.
+   - Adicionar campos adicionais ao modelo de usuário (ex.: foto, biografia, localização).
+
+3. **Melhorar o Design:**
+   - Utilizar **CSS** e bibliotecas como **Bootstrap** para melhorar a aparência das páginas.
+
+4. **Testes e Otimização:**
+   - Garantir que todas as funcionalidades implementadas estão funcionando corretamente.
+   - Configurar testes automatizados para evitar problemas futuros.
+
+5. **Preparar o Projeto para Produção:**
+   - Configurar o projeto para hospedagem.
+   - Proteger informações sensíveis (ex.: variáveis de ambiente para credenciais de e-mail e banco de dados).
+
+---
+
+Se precisar continuar de onde paramos, este documento contém todas as informações necessárias. Podemos seguir exatamente conforme o planejamento inicial ou fazer ajustes conforme as novas demandas! 😊

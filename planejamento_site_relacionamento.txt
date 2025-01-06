@@ -1,0 +1,39 @@
+
+Planejamento do Site de Relacionamentos
+
+1. Características gerais:
+   - O site precisa ser responsivo desde o início para funcionar bem em dispositivos móveis e computadores.
+   - O desenvolvimento deve aproveitar soluções prontas ao máximo para acelerar o processo.
+
+2. Funcionalidades iniciais planejadas:
+   - Cadastro e login de usuários (aproveitando o sistema de autenticação do Django).
+   - Perfis personalizados com informações como gênero, idade, interesses, etc.
+   - Sistema de busca/matching entre usuários.
+   - Sistema de mensagens privadas entre usuários.
+
+3. Ferramentas e recursos prontos a serem utilizados:
+   - **Django**: Framework principal para o back-end e administração.
+   - **django-allauth**: Para autenticação (incluindo social login com Google e Facebook).
+   - **Bootstrap**: Para criar um design responsivo e layouts prontos.
+   - **django-channels**: Para implementar chat em tempo real (opcional em uma fase futura).
+
+4. Banco de dados:
+   - Usar MySQL como banco principal, já configurado e integrado ao projeto.
+   - Modelos personalizados para estender o sistema de usuários do Django.
+
+5. Estrutura inicial do projeto:
+   - Apps no Django para modularidade:
+     - `accounts`: Gerenciamento de usuários.
+     - `profiles`: Perfis dos usuários.
+     - `matching`: Lógica de compatibilidade.
+     - `messages`: Sistema de mensagens privadas.
+
+6. Prototipagem e layout:
+   - Escolher templates prontos (ex.: Bootstrap) para acelerar o design responsivo.
+   - Planejar e testar o layout no formato mobile-first.
+
+7. Próximos passos sugeridos:
+   - Implementar cadastro e login com django-allauth.
+   - Criar estrutura inicial para perfis personalizados.
+   - Escolher um template HTML responsivo para integrar ao projeto.
+
