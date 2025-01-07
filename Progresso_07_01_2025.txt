@@ -1,0 +1,63 @@
+### Progresso do Projeto Django - Site de Relacionamento
+**Data:** 07/01/2025
+
+#### Atividades Realizadas:
+1. Corrigimos o erro de carregamento do Bootstrap e configuramos o uso local dos arquivos CSS e JS.
+   - Arquivos do Bootstrap foram salvos em:
+     - `meu_app/static/css/bootstrap.min.css`
+     - `meu_app/static/js/bootstrap.bundle.min.js`
+   - O arquivo `base.html` foi ajustado para carregar os arquivos estáticos corretamente, utilizando `{% load static %}`.
+
+2. Testamos o design com componentes do Bootstrap:
+   - Barra de navegação estilizada no topo.
+   - Mensagem de alerta confirmando que o Bootstrap está funcionando corretamente.
+   - Estrutura responsiva validada.
+
+#### Estrutura Atualizada das Pastas do Projeto:
+```
+site-relacionamento/
+├── media/
+│   └── profile_pictures/
+│       ├── 995334cf347e7572e9f844ccd23d9eb1.jpg
+│       └── ninja_forex.jpg
+├── meu_app/
+│   ├── migrations/
+│   │   └── 0001_initial.py
+│   ├── static/
+│   │   ├── css/
+│   │   │   └── bootstrap.min.css
+│   │   ├── js/
+│   │   │   └── bootstrap.bundle.min.js
+│   │   └── images/
+│   ├── templates/
+│   │   └── meu_app/
+│   │       ├── base.html
+│   │       ├── editar_perfil.html
+│   │       ├── home.html
+│   │       └── perfil.html
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── forms.py
+│   ├── models.py
+│   ├── signals.py
+│   ├── tests.py
+│   └── views.py
+├── site_relacionamento/
+│   ├── __init__.py
+│   ├── asgi.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── .gitignore
+├── manage.py
+└── README.md
+```
+
+#### Conclusão:
+O Bootstrap foi integrado com sucesso e testado no projeto. O layout está funcional e responsivo. O projeto está pronto para avançar para a próxima funcionalidade.
+
+**Próximos Passos:**
+1. Melhorar o design geral das páginas (ex.: usar "cards" para exibir informações).
+2. Implementar a funcionalidade de mensagens entre usuários.
+3. Testar o site em dispositivos móveis para garantir a responsividade.

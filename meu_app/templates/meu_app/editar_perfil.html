@@ -1,17 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Perfil</title>
-</head>
-<body>
-    <h1>Editar Perfil</h1>
-    <form method="post" enctype="multipart/form-data">
+{% extends "base.html" %}
+
+{% block title %}Editar Perfil{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Editar Perfil</h1>
+    <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
         {% csrf_token %}
-        {{ form.as_p }} <!-- Renderiza o formulário com os campos alinhados verticalmente -->
-        <button type="submit">Salvar Alterações</button>
+        <div class="mb-3">
+            {{ form.as_p }} <!-- Renderiza os campos do formulário com alinhamento vertical -->
+        </div>
+        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+        <a href="{% url 'perfil' %}" class="btn btn-secondary ms-2">Voltar para o Perfil</a>
     </form>
-    <a href="{% url 'perfil' %}">Voltar para o Perfil</a> <!-- Link para retornar ao perfil -->
-</body>
-</html>
+</div>
+{% endblock %}

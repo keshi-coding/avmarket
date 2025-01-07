@@ -1,22 +1,21 @@
-<!-- meu_app/templates/meu_app/perfil.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil do Usuário</title>
-</head>
-<body>
-    <h1>Perfil de {{ username }}</h1>
+{% extends "base.html" %}
+
+{% block title %}Perfil do Usuário{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Perfil de {{ username }}</h1>
     <p><strong>Nome:</strong> {{ first_name }} {{ last_name }}</p>
     <p><strong>E-mail:</strong> {{ email }}</p>
     <p><strong>Bio:</strong> {{ profile.bio|default_if_none:"Não informado" }}</p>
     <p><strong>Localização:</strong> {{ profile.location|default_if_none:"Não informado" }}</p>
-    <p><strong>Foto de Perfil:</strong></p>
-    {% if profile.profile_picture %}
-        <img src="{{ profile.profile_picture.url }}" alt="Foto de Perfil" width="150">
-    {% else %}
-        <p>Sem foto de perfil</p>
-    {% endif %}
-</body>
-</html>
+    <div>
+        <p><strong>Foto de Perfil:</strong></p>
+        {% if profile.profile_picture %}
+            <img src="{{ profile.profile_picture.url }}" alt="Foto de Perfil" class="img-thumbnail" width="150">
+        {% else %}
+            <p>Sem foto de perfil</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

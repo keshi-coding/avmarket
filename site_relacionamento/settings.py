@@ -132,6 +132,11 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# Diretórios adicionais para arquivos estáticos (CSS, JS, imagens, etc.)
+STATICFILES_DIRS = [
+    BASE_DIR / 'meu_app/static',  # Configura a pasta estática do app
+]
+
 # Arquivos de mídia (imagens, arquivos enviados pelo usuário)
 MEDIA_URL = '/media/'  # URL para acessar arquivos de mídia
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Diretório onde os arquivos de mídia serão armazenados
