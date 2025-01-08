@@ -66,3 +66,48 @@
 
 Essa é a documentação inicial das Views e Templates. Atualize conforme necessário para manter tudo alinhado e claro.
 
+
+## Atualizações de 08/01/2025
+
+### Templates
+- **tela_inicial.html**:
+  - Script de validação para verificar se o e-mail já existe no banco de dados:
+    ```javascript
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const emailField = document.querySelector("#id_email");
+            const emailFeedback = document.querySelector("#email_feedback");
+
+            emailField.addEventListener("blur", function () {
+                const email = emailField.value.trim();
+
+                if (email.length > 3) {
+                    fetch(`/verificar-email/?email=${encodeURIComponent(email)}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (!data.existe) {
+                                emailFeedback.textContent = "E-mail não encontrado. Você pode se cadastrar.";
+                            } else {
+                                emailFeedback.textContent = ""; // Limpa a mensagem se o e-mail existir
+                            }
+                        })
+                        .catch(error => {
+                            console.error("Erro ao verificar o e-mail:", error);
+                            emailFeedback.textContent = "Erro ao verificar o e-mail. Tente novamente mais tarde.";
+                        });
+                } else {
+                    emailFeedback.textContent = "";
+                }
+            });
+        });
+    </script>
+    ```
+  - Campo de e-mail ajustado com `id_email` e feedback dinâmico de validação.
+
+### Novas Rotas
+- **/verificar-email/**:
+  - Endpoint criado para verificar se o e-mail existe no banco de dados.
+  - Retorna um JSON com `{ "existe": true }` ou `{ "existe": false }`.
+
+### Outros
+- Confirmado que a configuração `ACCOUNT_SIGNUP_FORM_CLASS` no `settings.py` foi removida sem impacto, pois não estamos alterando o comportamento interno do `allauth`, apenas ajustando o front-end.
