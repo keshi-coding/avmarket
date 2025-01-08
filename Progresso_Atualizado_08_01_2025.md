@@ -1,3 +1,4 @@
+
 ### Requisitos fixos do projeto
 Este cabeçalho deve ficar fixo toda vez que vc atualizar esse arquivo, você pode riscar dar um check ou riscar ou marcar como OK na frente da linha
 se tivermos terminado de implementar e testado o requisito
@@ -31,32 +32,26 @@ se tivermos terminado de implementar e testado o requisito
 
 --------------------------------------------------------
 
-
 ### Progresso do Projeto Django - Site de Relacionamento
-**Data:** 07/01/2025
+**Data:** 08/01/2025
 
 #### Atividades Realizadas:
-1. Corrigimos o erro de carregamento do Bootstrap e configuramos o uso local dos arquivos CSS e JS.
-   - Arquivos do Bootstrap foram salvos em:
-     - `meu_app/static/css/bootstrap.min.css`
-     - `meu_app/static/js/bootstrap.bundle.min.js`
-   - O arquivo `base.html` foi ajustado para carregar os arquivos estáticos corretamente, utilizando `{% load static %}`.
+1. Implementação da funcionalidade para validar o e-mail na tela de login.
+   - Adicionada uma view `verificar_email` que retorna um JSON informando se o e-mail existe no banco de dados.
+   - Adicionado script na página `tela_inicial.html` para verificar o e-mail ao perder o foco do campo de entrada.
+   - Configurado o frontend para exibir uma mensagem ao usuário caso o e-mail não seja encontrado no sistema.
 
-2. Testamos o design com componentes do Bootstrap:
-   - Barra de navegação estilizada no topo.
-   - Mensagem de alerta confirmando que o Bootstrap está funcionando corretamente.
-   - Estrutura responsiva validada.
+2. Correções e melhorias:
+   - Ajustado o HTML e o JavaScript para garantir que o script seja executado corretamente na página.
+   - Validado o funcionamento do script no navegador, verificando o console para mensagens de erro.
 
 #### Estrutura Atualizada das Pastas do Projeto:
 ```
 site-relacionamento/
 ├── media/
 │   └── profile_pictures/
-│       ├── 995334cf347e7572e9f844ccd23d9eb1.jpg
-│       └── ninja_forex.jpg
 ├── meu_app/
 │   ├── migrations/
-│   │   └── 0001_initial.py
 │   ├── static/
 │   │   ├── css/
 │   │   │   └── bootstrap.min.css
@@ -64,11 +59,13 @@ site-relacionamento/
 │   │   │   └── bootstrap.bundle.min.js
 │   │   └── images/
 │   ├── templates/
+│   │   ├── account/
 │   │   └── meu_app/
 │   │       ├── base.html
 │   │       ├── editar_perfil.html
 │   │       ├── home.html
-│   │       └── perfil.html
+│   │       ├── perfil.html
+│   │       └── tela_inicial.html
 │   ├── __init__.py
 │   ├── admin.py
 │   ├── apps.py
@@ -76,7 +73,8 @@ site-relacionamento/
 │   ├── models.py
 │   ├── signals.py
 │   ├── tests.py
-│   └── views.py
+│   ├── views.py
+│   └── urls.py
 ├── site_relacionamento/
 │   ├── __init__.py
 │   ├── asgi.py
@@ -89,9 +87,9 @@ site-relacionamento/
 ```
 
 #### Conclusão:
-O Bootstrap foi integrado com sucesso e testado no projeto. O layout está funcional e responsivo. O projeto está pronto para avançar para a próxima funcionalidade.
+A validação de e-mail foi implementada com sucesso na tela inicial, e a funcionalidade está funcionando como esperado. O script foi depurado e corrigido para atender aos requisitos.
 
-**Próximos Passos:**
-1. Melhorar o design geral das páginas (ex.: usar "cards" para exibir informações).
-2. Implementar a funcionalidade de mensagens entre usuários.
-3. Testar o site em dispositivos móveis para garantir a responsividade.
+#### Próximos Passos:
+1. Testar a funcionalidade de validação de e-mail em diferentes navegadores para garantir compatibilidade.
+2. Implementar mensagens visuais mais atrativas para feedback ao usuário (ex.: estilos do Bootstrap).
+3. Continuar o desenvolvimento com a próxima funcionalidade planejada.

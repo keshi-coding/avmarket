@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-
+from django.http import JsonResponse
+from django.contrib.auth.models import User
 
 @login_required
 def home(request):
@@ -40,3 +41,11 @@ def tela_inicial(request):
     if request.user.is_authenticated:
         return redirect('home')  # Redireciona para home se o usuário já estiver logado
     return render(request, 'meu_app/tela_inicial.html')
+
+def verificar_email(request):
+    if request.method == "GET":
+        email = request.GET.get('email', None)
+        if email:
+            existe = User.objects.filter(email=email).exists()
+            return JsonResponse({'existe': existe})
+    return JsonResponse({'existe': False})

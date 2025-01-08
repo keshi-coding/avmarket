@@ -11,11 +11,8 @@
         <form method="post" action="{% url 'account_signup' %}" class="text-start mx-auto" style="max-width: 400px;">
             {% csrf_token %}
 
-            <!-- Campo: Nome de Usuário -->
-            <div class="mb-3">
-                <label for="id_username" class="form-label">Nome de Usuário</label>
-                <input type="text" id="id_username" name="username" class="form-control" placeholder="Escolha um nome de usuário" required>
-            </div>
+            <!-- Campo: Nome de Usuário (escondido) -->
+            <input type="hidden" id="id_username" name="username" value="default_username">
 
             <!-- Campo: E-mail -->
             <div class="mb-3">
@@ -41,3 +38,5 @@
     </div>
 </div>
 {% endblock %}
+
+
