@@ -15,6 +15,7 @@ import smtplib
 import os
 
 from pathlib import Path
+from django.utils.module_loading import import_string
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -158,7 +159,7 @@ DEFAULT_FROM_EMAIL = 'keshi.coding@gmail.com'
 
 # Autenticação do Django Allauth
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"  # Verificação de e-mail
-ACCOUNT_USERNAME_REQUIRED = True  # Login por nome de usuário
-ACCOUNT_AUTHENTICATION_METHOD = "username"  # Autenticação por nome de usuário
+ACCOUNT_USERNAME_REQUIRED = False  # Login por nome de usuário
+ACCOUNT_AUTHENTICATION_METHOD = "email"  # Autenticação por nome de usuário
 ACCOUNT_EMAIL_REQUIRED = True  # E-mail obrigatório
 ACCOUNT_SIGNUP_REDIRECT_URL = "/"  # Redirecionamento após cadastro

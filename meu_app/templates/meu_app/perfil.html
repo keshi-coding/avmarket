@@ -1,21 +1,26 @@
-{% extends "base.html" %}
+{% extends "meu_app/base.html" %}
 
 {% block title %}Perfil do Usuário{% endblock %}
 
 {% block content %}
 <div class="container mt-5">
-    <h1 class="mb-4">Perfil de {{ username }}</h1>
-    <p><strong>Nome:</strong> {{ first_name }} {{ last_name }}</p>
-    <p><strong>E-mail:</strong> {{ email }}</p>
-    <p><strong>Bio:</strong> {{ profile.bio|default_if_none:"Não informado" }}</p>
-    <p><strong>Localização:</strong> {{ profile.location|default_if_none:"Não informado" }}</p>
-    <div>
-        <p><strong>Foto de Perfil:</strong></p>
-        {% if profile.profile_picture %}
-            <img src="{{ profile.profile_picture.url }}" alt="Foto de Perfil" class="img-thumbnail" width="150">
-        {% else %}
-            <p>Sem foto de perfil</p>
-        {% endif %}
+    <h1 class="mb-4 text-center">Perfil de {{ username }}</h1>
+    <div class="card mx-auto" style="max-width: 600px;">
+        <div class="card-body">
+            <h5 class="card-title">Informações do Usuário</h5>
+            <p><strong>Nome:</strong> {{ first_name }} {{ last_name }}</p>
+            <p><strong>E-mail:</strong> {{ email }}</p>
+            <p><strong>Bio:</strong> {{ profile.bio|default_if_none:"Não informado" }}</p>
+            <p><strong>Localização:</strong> {{ profile.location|default_if_none:"Não informado" }}</p>
+        </div>
+        <div class="card-footer text-center">
+            <p><strong>Foto de Perfil:</strong></p>
+            {% if profile.profile_picture %}
+                <img src="{{ profile.profile_picture.url }}" alt="Foto de Perfil" class="img-thumbnail" width="150">
+            {% else %}
+                <p>Sem foto de perfil</p>
+            {% endif %}
+        </div>
     </div>
 </div>
 {% endblock %}

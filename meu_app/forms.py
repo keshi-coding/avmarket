@@ -1,4 +1,3 @@
-# meu_app/forms.py
 from django import forms
 from .models import Profile
 
@@ -11,3 +10,4 @@ class ProfileForm(forms.ModelForm):
             'location': 'Localização',
             'profile_picture': 'Foto de Perfil',
         }
+

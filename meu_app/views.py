@@ -1,14 +1,16 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .forms import ProfileForm  # Certifique-se de importar o formulário criado
+
 
 @login_required
 def home(request):
+    # Página inicial após login
     return render(request, 'meu_app/home.html', {'username': request.user.username})
+
 
 @login_required
 def perfil(request):
-    # Renderiza a página de perfil com os dados do usuário logado
+    # Página de perfil do usuário logado
     return render(request, 'meu_app/perfil.html', {
         'username': request.user.username,
         'email': request.user.email,
@@ -17,8 +19,11 @@ def perfil(request):
         'profile': request.user.profile,  # Dados adicionais do perfil
     })
 
+
 @login_required
 def editar_perfil(request):
+    from .forms import ProfileForm  # Importação atrasada para evitar circular import
+
     profile = request.user.profile  # Recupera o perfil do usuário logado
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES, instance=profile)
@@ -28,3 +33,10 @@ def editar_perfil(request):
     else:
         form = ProfileForm(instance=profile)  # Preenche o formulário com os dados atuais do perfil
     return render(request, 'meu_app/editar_perfil.html', {'form': form})
+
+
+def tela_inicial(request):
+    # Tela inicial (antes do login)
+    if request.user.is_authenticated:
+        return redirect('home')  # Redireciona para home se o usuário já estiver logado
+    return render(request, 'meu_app/tela_inicial.html')

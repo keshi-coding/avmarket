@@ -1,17 +1,23 @@
-{% extends "base.html" %}
+{% extends "meu_app/base.html" %}
 
 {% block title %}Editar Perfil{% endblock %}
 
 {% block content %}
 <div class="container mt-5">
-    <h1 class="mb-4">Editar Perfil</h1>
-    <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
-        {% csrf_token %}
-        <div class="mb-3">
-            {{ form.as_p }} <!-- Renderiza os campos do formulário com alinhamento vertical -->
+    <h1 class="mb-4 text-center">Editar Perfil</h1>
+    <div class="card mx-auto" style="max-width: 600px;">
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                {% csrf_token %}
+                <div class="mb-3">
+                    {{ form.as_p }} <!-- Renderiza os campos do formulário de forma vertical -->
+                </div>
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                    <a href="{% url 'perfil' %}" class="btn btn-secondary">Voltar</a>
+                </div>
+            </form>
         </div>
-        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
-        <a href="{% url 'perfil' %}" class="btn btn-secondary ms-2">Voltar para o Perfil</a>
-    </form>
+    </div>
 </div>
 {% endblock %}
