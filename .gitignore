@@ -169,3 +169,7 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Dados nao necessarios
+dados importantes.txt
+trechos_uteis.txt

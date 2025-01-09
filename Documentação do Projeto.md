@@ -1,4 +1,61 @@
+## Descrição desse arquivo para o GPT
+#### Aqui voce deve documentar, para facilitar a sua memorização ou quando iniciarmos o trabalho os principais nomes de variáveis utilizados, caminhos, pastas, nome de arquivos, nome de processos, classes, bibliotecas, cabecalhos e etc. 
+#### Sempre no inicio e no final de um trabalho eu vou enviar este arquivo para voce, entao voce nao deve apagar e sim adicionar informações, revisar e atualizar as informações que ja tem porque pode ser que algo foi alterado e ja se tornou velho.
+#### Isso serve para orientar voce e reduzir erros de reduncancia, ou duplicação de coisas que voce mesmo ja fez.
+#### E principalmente refrescar a sua memória para inciar o trabalho.
 ## Documentação do Projeto
+
+### Estrutura das pastas
+
+## Estrutura do Projeto
+
+```plaintext
+├── site-relacionamento/
+│   ├── media/
+│   │   └── profile_pictures/
+│   │       ├── 995334cf347e7572e9f844ccd23d9eb1.jpg
+│   │       └── ninja_forex.jpg
+│   ├── meu_app/
+│   │   ├── migrations/
+│   │   │   ├── 0001_initial.py
+│   │   │   └── __init__.py
+│   │   ├── static/
+│   │   │   ├── css/
+│   │   │   │   └── bootstrap.min.css
+│   │   │   ├── js/
+│   │   │   │   └── bootstrap.bundle.min.js
+│   │   ├── templates/
+│   │   │   ├── account/
+│   │   │   │   ├── password_reset.html
+│   │   │   │   └── signup.html
+│   │   │   ├── meu_app/
+│   │   │   │   ├── base.html
+│   │   │   │   ├── editar_perfil.html
+│   │   │   │   ├── home.html
+│   │   │   │   ├── perfil.html
+│   │   │   │   └── tela_inicial.html
+│   │   ├── __init__.py
+│   │   ├── admin.py
+│   │   ├── apps.py
+│   │   ├── forms.py
+│   │   ├── models.py
+│   │   ├── signals.py
+│   │   ├── tests.py
+│   │   └── views.py
+│   ├── site_relacionamento/
+│   │   ├── __init__.py
+│   │   ├── asgi.py
+│   │   ├── settings.py
+│   │   ├── urls.py
+│   │   └── wsgi.py
+│   ├── .gitignore
+│   ├── dados importantes.txt
+│   ├── Documentação do Projeto.md
+│   ├── estrutura.txt
+│   ├── manage.py
+│   ├── Progresso_Atualizado_08_01_2025.md
+│   └── README.md
+```
 
 ### Views
 
@@ -63,9 +120,6 @@
   - Todos os templates foram ajustados para usar o Bootstrap, garantindo responsividade para dispositivos móveis e desktops.
 
 ---
-
-Essa é a documentação inicial das Views e Templates. Atualize conforme necessário para manter tudo alinhado e claro.
-
 
 ## Atualizações de 08/01/2025
 
