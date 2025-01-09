@@ -16,6 +16,8 @@ import os
 
 from pathlib import Path
 
+from django.conf.global_settings import EMAIL_BACKEND
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -147,14 +149,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Diretório onde os arquivos de m
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Configuração de e-mails
-EMAIL_BACKEND = 'site_relacionamento.settings.CustomSMTPEmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+EMAIL_PORT = 2525
+EMAIL_HOST_USER = '535a321792feb2'
+EMAIL_HOST_PASSWORD = 'dd91d588ab2762'
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
-EMAIL_HOST_USER = 'keshi.coding@gmail.com'
-EMAIL_HOST_PASSWORD = 'jdla vjyr ibsz azzp'
-DEFAULT_FROM_EMAIL = 'keshi.coding@gmail.com'
+DEFAULT_FROM_EMAIL = 'noreply@seusite.com'
+
+
 
 # Autenticação do Django Allauth - usar apenas o email como identificador
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"  # Verificação de e-mail
@@ -163,4 +167,12 @@ ACCOUNT_AUTHENTICATION_METHOD = "email"  # Autenticação por nome de usuário
 ACCOUNT_EMAIL_REQUIRED = True  # E-mail obrigatório
 ACCOUNT_SIGNUP_REDIRECT_URL = "/"  # Redirecionamento após cadastro
 ACCOUNT_UNIQUE_EMAIL = True # Exige e-mail unico
+# Número de tentativas antes do bloqueio
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 100
+ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 1
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',  # Backend padrão do Django
+    'allauth.account.auth_backends.AuthenticationBackend',  # Backend do Allauth
+]
 

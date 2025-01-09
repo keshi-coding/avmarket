@@ -5,6 +5,37 @@ Senha: 123456
 
 ----
 
+usuário de testes normal
+usuário: keshi.coding@gmail.com
+Senha: Leilao142!
+
+----
+
+
 Banco de dados: **relacionamento**.
 Usuário: **postgres**.
 Senha: **SDf872D553#41#%^@@#Dz**.
+
+
+
+## código para testar autenticação allauth django no shell
+from django.contrib.auth import authenticate
+usuario = authenticate(login='keshi.coding@gmail.com', password='Leilao142!')
+
+if usuario is not None:
+    print("Autenticação bem-sucedida!")
+else:
+    print("E-mail ou senha inválidos.")
+
+----
+
+## código para trocar a senha allauth django no shell
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+user = User.objects.get(email='keshi.coding@gmail.com')
+user.set_password('Leilao142!')
+user.save()
+
+print("Senha redefinida com sucesso.")

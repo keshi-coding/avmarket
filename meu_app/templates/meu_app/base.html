@@ -10,7 +10,7 @@
 </head>
 <body>
 <header>
-    {% if request.resolver_match.url_name != 'tela_inicial' %}
+    {% if request.resolver_match.url_name != 'tela_inicial' and request.resolver_match.url_name != 'account_reset_password' %}
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">Meu Site</a>
