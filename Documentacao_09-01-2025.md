@@ -3,11 +3,11 @@
 #### Sempre no inicio e no final de um trabalho eu vou enviar este arquivo para voce, entao voce nao deve apagar e sim adicionar informações, revisar e atualizar as informações que ja tem porque pode ser que algo foi alterado e ja se tornou velho.
 #### Isso serve para orientar voce e reduzir erros de reduncancia, ou duplicação de coisas que voce mesmo ja fez.
 #### E principalmente refrescar a sua memória para inciar o trabalho.
+#### a estrutura das pastas voce deve sempre atualizar, editar ou renovar quando necessario
+#### as adicoes de novas variaveis, metodos, classes devem estar no final na secao com a data da atualizacao
 ## Documentação do Projeto
 
 ### Estrutura das pastas
-
-## Estrutura do Projeto
 
 ```plaintext
 ├── site-relacionamento/
@@ -165,3 +165,17 @@
 
 ### Outros
 - Confirmado que a configuração `ACCOUNT_SIGNUP_FORM_CLASS` no `settings.py` foi removida sem impacto, pois não estamos alterando o comportamento interno do `allauth`, apenas ajustando o front-end.
+
+## Notas Importantes
+- **Mailtrap:** Configurado no ambiente local para envio seguro de e-mails.
+- **Tradução:** Implementação futura para suportar inglês e japonês.
+
+### Atualizações de 09/01/2015
+1. **Funcionalidade de Recuperação de Senha:**
+   - Template `password_reset.html` criado e ajustado com design responsivo.
+   - Configuração do Mailtrap como servidor de e-mail para testes.
+
+2. **Correção de Autenticação:**
+   - Adicionadas entradas no `AUTHENTICATION_BACKENDS` para suportar autenticação via `django-allauth`.
+
+

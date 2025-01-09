@@ -45,46 +45,6 @@ se tivermos terminado de implementar e testado o requisito
    - Ajustado o HTML e o JavaScript para garantir que o script seja executado corretamente na página.
    - Validado o funcionamento do script no navegador, verificando o console para mensagens de erro.
 
-#### Estrutura Atualizada das Pastas do Projeto:
-```
-site-relacionamento/
-├── media/
-│   └── profile_pictures/
-├── meu_app/
-│   ├── migrations/
-│   ├── static/
-│   │   ├── css/
-│   │   │   └── bootstrap.min.css
-│   │   ├── js/
-│   │   │   └── bootstrap.bundle.min.js
-│   │   └── images/
-│   ├── templates/
-│   │   ├── account/
-│   │   └── meu_app/
-│   │       ├── base.html
-│   │       ├── editar_perfil.html
-│   │       ├── home.html
-│   │       ├── perfil.html
-│   │       └── tela_inicial.html
-│   ├── __init__.py
-│   ├── admin.py
-│   ├── apps.py
-│   ├── forms.py
-│   ├── models.py
-│   ├── signals.py
-│   ├── tests.py
-│   ├── views.py
-│   └── urls.py
-├── site_relacionamento/
-│   ├── __init__.py
-│   ├── asgi.py
-│   ├── settings.py
-│   ├── urls.py
-│   └── wsgi.py
-├── .gitignore
-├── manage.py
-└── README.md
-```
 
 #### Conclusão:
 A validação de e-mail foi implementada com sucesso na tela inicial, e a funcionalidade está funcionando como esperado. O script foi depurado e corrigido para atender aos requisitos.
@@ -93,3 +53,30 @@ A validação de e-mail foi implementada com sucesso na tela inicial, e a funcio
 1. Testar a funcionalidade de validação de e-mail em diferentes navegadores para garantir compatibilidade.
 2. Implementar mensagens visuais mais atrativas para feedback ao usuário (ex.: estilos do Bootstrap).
 3. Continuar o desenvolvimento com a próxima funcionalidade planejada.
+
+# Progresso Atualizado - 09/01/2025
+
+## Atualizações do Projeto
+
+### Funcionalidades Testadas e Implementadas:
+1. **Sistema de Recuperação de Senha:**
+   - Implementado template `password_reset.html` com design responsivo usando Bootstrap.
+   - Corrigido comportamento de campos de entrada com bordas azuis ao foco, similar ao `tela_frente.html`.
+   - Removido menu de navegação em telas de recuperação de senha.
+
+2. **Correções de Erros:**
+   - Ajustado problema com autenticação devido à ausência de `AUTHENTICATION_BACKENDS` no `settings.py`.
+   - Configuração de `ACCOUNT_LOGIN_ATTEMPTS_LIMIT` para controle de tentativas de login inválidas.
+
+3. **Integração de Mailtrap:**
+   - Configuração do Mailtrap como servidor de e-mail padrão, substituindo o Gmail.
+   - Testado com sucesso envio e recebimento de e-mails no ambiente local.
+
+### Estrutura do Projeto Atualizada:
+- Atualizada estrutura de pastas do projeto com base nos novos diretórios e arquivos.
+- Implementação de `gitignore` para excluir arquivos desnecessários do versionamento.
+
+## Próximos Passos:
+1. Revisar templates para garantir consistência visual.
+2. Implementar funcionalidades adicionais de perfil e sistema de "match".
+3. Separar funcionalidade bilíngue para futura implementação.
