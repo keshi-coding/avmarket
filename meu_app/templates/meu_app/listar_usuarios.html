@@ -1,0 +1,29 @@
+{% extends 'meu_app/base.html' %}
+
+{% block content %}
+<h2 class="text-center">Usuários Registrados</h2>
+
+<div class="row mt-4">
+    {% for usuario in usuarios %}
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <!-- Exibe a foto de perfil do usuário -->
+            {% if usuario.profile_picture %}
+            <img src="{{ usuario.profile_picture.url }}" class="card-img-top" alt="Foto de {{ usuario.user.username }}">
+            {% else %}
+            <img src="/static/images/default-profile.webp" class="card-img-top" alt="Foto padrão">
+            {% endif %}
+
+            <div class="card-body">
+                <!-- Exibe o nome e localização -->
+                <h5 class="card-title">{{ usuario.user.username }}</h5>
+                <p class="card-text">{{ usuario.location }}</p>
+                <a href="{% url 'perfil_outro' usuario.user.email %}" class="btn btn-primary">Ver Perfil</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-center">Nenhum usuário encontrado.</p>
+    {% endfor %}
+</div>
+{% endblock %}

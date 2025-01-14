@@ -1,4 +1,4 @@
-{% load static %}
+ {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +10,7 @@
 </head>
 <body>
 <header>
-    {% if request.resolver_match.url_name != 'tela_inicial' and request.resolver_match.url_name != 'account_reset_password' %}
+    {% if not hide_menu %}
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">Meu Site</a>
@@ -25,6 +25,8 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/perfil/">Perfil</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'lista_mensagens' %}">Mensagens</a> <!-- Link para mensagens -->
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
                     </li>

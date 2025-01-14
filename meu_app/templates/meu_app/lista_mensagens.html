@@ -1,0 +1,31 @@
+{% extends 'meu_app/base.html' %}
+
+{% block content %}
+<h2>Minhas Mensagens</h2>
+
+<h3>Mensagens Recebidas</h3>
+<ul>
+    {% for mensagem in mensagens_recebidas %}
+        <li>
+            <strong>De:</strong> {{ mensagem.remetente.username }}<br>
+            <strong>Mensagem:</strong> {{ mensagem.conteudo }}<br>
+            <strong>Enviado em:</strong> {{ mensagem.timestamp }}
+        </li>
+    {% empty %}
+        <li>Você não recebeu nenhuma mensagem.</li>
+    {% endfor %}
+</ul>
+
+<h3>Mensagens Enviadas</h3>
+<ul>
+    {% for mensagem in mensagens_enviadas %}
+        <li>
+            <strong>Para:</strong> {{ mensagem.destinatario.username }}<br>
+            <strong>Mensagem:</strong> {{ mensagem.conteudo }}<br>
+            <strong>Enviado em:</strong> {{ mensagem.timestamp }}
+        </li>
+    {% empty %}
+        <li>Você não enviou nenhuma mensagem.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

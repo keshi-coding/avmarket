@@ -1,27 +1,47 @@
 from django import forms
 from .models import Profile
 from allauth.account.forms import SignupForm
+from django.core.exceptions import ValidationError
+from django.contrib.auth.models import User
 
+# Formulário para editar o perfil do usuário
 class ProfileForm(forms.ModelForm):
     class Meta:
-        model = Profile
-        fields = ['bio', 'location', 'profile_picture']  # Campos que o usuário pode editar
-        labels = {
+        model = Profile  # Modelo associado ao formulário
+        fields = ['bio', 'location', 'profile_picture']  # Campos disponíveis para edição
+        labels = {  # Rótulos personalizados para os campos
             'bio': 'Biografia',
             'location': 'Localização',
             'profile_picture': 'Foto de Perfil',
         }
 
+# Formulário personalizado para cadastro
 class CustomSignupForm(SignupForm):
     def __init__(self, *args, **kwargs):
+        # Inicializa o formulário padrão do Allauth
         super().__init__(*args, **kwargs)
-        # Esconde o campo de username no formulário
+        # Esconde o campo de username no formulário (não será visível para o usuário)
         self.fields['username'].widget = forms.HiddenInput()
-        self.fields['username'].initial = 'temp_username'  # Define um valor temporário
+        # Define um valor temporário para o username, necessário durante o cadastro
+        self.fields['username'].initial = 'temp_username'
+
+    def clean_email(self):
+        """
+        Verifica se o e-mail já existe no banco de dados.
+        Se existir, levanta um erro de validação.
+        """
+        email = self.cleaned_data['email']  # Obtém o e-mail informado pelo usuário
+        if User.objects.filter(email=email).exists():
+            raise ValidationError("Este e-mail já está cadastrado. Por favor, use outro.")
+        return email  # Retorna o e-mail validado
 
     def save(self, request):
-        # Salva o usuário com o username baseado no e-mail
-        user = super().save(request)
-        user.username = user.email.split('@')[0]  # Define o username como parte antes do "@"
-        user.save()
-        return user
+        """
+        Sobrescreve o método save para personalizar o processo de salvamento do usuário.
+        - Define o username como a parte antes do "@" no e-mail.
+        """
+        user = super().save(request)  # Salva o usuário com os dados padrão do Allauth
+        # Define o username como a parte antes do "@" no e-mail
+        user.username = user.email.split('@')[0]
+        user.save()  # Salva o usuário novamente com o username atualizado
+        return user  # Retorna o objeto do usuário
