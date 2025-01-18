@@ -41,6 +41,33 @@ se tivermos terminado de implementar e testado o requisito
 
 --------------------------------------------------------
 
+### Ferramentas que estamos utilizando
+- Django Python para fazer este projeto
+- Bootstrap para economizar tempo no design
+- Conectado com o github
+- Utilizando 2 arquivos para documentar tudo e para
+facilitar a sua memoria e o cross de arquivos/variaveis e metodos
+os dois arquivos sao: 
+codigos_<data atual>.md / 
+progresso_<data atual>.md
+
+--------------------------------------------------------
+
+### Instrucoes de Métodos de resposta para o CHATGPT.
+- Nunca se esqueça de sempre sugerir modulos, libs prontas para facilitar a implantação quando eu peço
+funcionalidades e sempre priorizar coisas prontas para economizar o tempo.
+- Sempre que voce for me enviar respostas ou solucoes codigos e passos, nao envie uma lista de passos de uma só vez. 
+Mas prefiro que mande 1 passo de cada vez e só seguir a sequencia quando conseguirmos 
+implantar o passo 1 e eu der o OK entao podemos ir para o passo 2.
+Por exemplo: 1. Faça X, 2. Faça Y, 3. Faça Z, assim tudo de uma vez fica ruim e podemos nos perder
+ao invés disso quero assim por exemplo: 1. Faca X vou aguardar voce fazer 
+entao eu vou tentar implantar o que vc disse se tivermos problemas vamos resolvendo
+soh depois que combinarmos OK! encerramos o passo 1 e fizemos X, entao voce pode seguir para o 
+Passo 2. Faca Y e assim por diante.
+- Em outras palavras procure quebrar a lista de passos para nao ficarmos perdido um com o outro.
+
+--------------------------------------------------------
+
 ## Atividades de 18-01-2025 - 21:12
 - Eu comecei a testar desde o cadastro de um usuario, descobri que
 existem varios templates que precisam ser estilizados e padronizados
@@ -48,7 +75,7 @@ com o bootstrap que estamos usando
 - Conseguimos fazer varias validacoes no frontend do cadastro de usuario
 como validacoes de email, senhas e etc.
 - Tambem conseguimos depois de bater muita a cabeça a estilizar a pagina da mensagem
-de validacao do email que vai para o usuario logo apos ele se cadastrar.
+de validacao do email padrao do allauth que vai para o usuario logo apos ele se cadastrar.
 
 ## Previsoes para a proxima secao de trabalho
 - Precisamos continuar seguindo o teste do processo de cadastro/autenticacao/login de um usuario novo 
