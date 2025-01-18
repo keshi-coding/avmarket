@@ -2,10 +2,11 @@ from django.conf import settings  # Importa as configurações do projeto, inclu
 from django.conf.urls.static import static  # Necessário para servir arquivos estáticos e de mídia em desenvolvimento
 from django.contrib import admin  # Importa o painel de administração do Django
 from django.urls import path, include  # Ferramentas para criar rotas no Django
-from meu_app.views import home, perfil, editar_perfil, tela_inicial, verificar_email, lista_mensagens, listar_usuarios
-# Importa as views específicas do app 'meu_app'
 
-# Lista de URLs do projeto
+from meu_app.views import home, perfil, editar_perfil, tela_inicial, verificar_email, lista_mensagens, listar_usuarios, \
+    enviar_mensagem, resend_verification_email
+
+# Importa as views específicas do app 'meu_app'
 urlpatterns = [
     path('admin/', admin.site.urls),  # Rota para o painel de administração
     path('accounts/', include('allauth.urls')),  # Inclui as URLs do django-allauth para login/cadastro
@@ -17,6 +18,8 @@ urlpatterns = [
     path('mensagens/', lista_mensagens, name='lista_mensagens'),  # Rota para exibir mensagens enviadas e recebidas
     path('usuarios/', listar_usuarios, name='listar_usuarios'), # Rota para listar usuarios
     path('perfil/<str:email>/', perfil, name="perfil_outro"),
+    path('mensagem/enviar/<str:email>/', enviar_mensagem, name='enviar_mensagem'),
+    path('accounts/resend-verification-email/', resend_verification_email, name='account_resend_email'),
 ]
 
 # Adiciona rotas para servir arquivos de mídia no ambiente de desenvolvimento

@@ -1,10 +1,12 @@
-from django.shortcuts import get_object_or_404, render, redirect  # Funções para renderizar templates e redirecionar URLs
-from django.contrib.auth.decorators import login_required  # Decorador para restringir acesso a usuários autenticados
-from django.http import JsonResponse  # Classe para retornar respostas JSON
-from django.contrib.auth.models import User  # Modelo padrão de usuário do Django
-from django.contrib import messages  # Para exibir mensagens
-from allauth.account.forms import SignupForm  # Formulário de cadastro do django-allauth
-from .models import Mensagem, Profile  # Modelos de mensagens e perfis
+from allauth.account.forms import SignupForm
+from allauth.account.models import EmailAddress
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, render, redirect
+from .models import Mensagem, Profile
+
 
 @login_required
 def home(request):
@@ -18,15 +20,8 @@ def home(request):
 def perfil(request, email=None):
     """
     Exibe o perfil do usuário logado ou de outro usuário.
-    - Se 'email' for fornecido, exibe o perfil do usuário correspondente.
-    - Caso contrário, exibe o perfil do usuário logado.
     """
-    if email:
-        # Obtém o perfil do usuário com base no e-mail fornecido
-        user = get_object_or_404(User, email=email)
-    else:
-        # Exibe o perfil do usuário logado
-        user = request.user
+    user = get_object_or_404(User, email=email) if email else request.user
 
     return render(request, 'meu_app/perfil.html', {
         'username': user.username,
@@ -42,13 +37,14 @@ def editar_perfil(request):
     """
     Permite que o usuário edite seu perfil.
     """
-    from .forms import ProfileForm  # Importação atrasada para evitar circular import
+    from .forms import ProfileForm
 
     profile = request.user.profile
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
+            messages.success(request, "Perfil atualizado com sucesso!")
             return redirect('perfil')
     else:
         form = ProfileForm(instance=profile)
@@ -70,9 +66,8 @@ def verificar_email(request):
     """
     if request.method == "GET":
         email = request.GET.get('email', None)
-        if email:
-            existe = User.objects.filter(email=email).exists()
-            return JsonResponse({'existe': existe})
+        existe = User.objects.filter(email=email).exists() if email else False
+        return JsonResponse({'existe': existe})
     return JsonResponse({'existe': False})
 
 
@@ -115,3 +110,38 @@ def listar_usuarios(request):
     """
     usuarios = Profile.objects.exclude(user=request.user)
     return render(request, 'meu_app/listar_usuarios.html', {'usuarios': usuarios})
+
+
+@login_required
+def enviar_mensagem(request, email):
+    """
+    Permite que o usuário logado envie uma mensagem para outro usuário.
+    """
+    destinatario = get_object_or_404(User, email=email)
+
+    if request.method == 'POST':
+        conteudo = request.POST.get('mensagem')
+        if conteudo:
+            Mensagem.objects.create(remetente=request.user, destinatario=destinatario, conteudo=conteudo)
+            messages.success(request, 'Mensagem enviada com sucesso!')
+            return redirect('perfil_outro', email=email)
+
+    return render(request, 'meu_app/enviar_mensagem.html', {'destinatario': destinatario})
+
+
+@login_required
+def resend_verification_email(request):
+    """
+    Reenvia o e-mail de verificação para o usuário.
+    """
+    try:
+        email_address = EmailAddress.objects.get(user=request.user, primary=True)
+        if not email_address.verified:
+            email_address.send_confirmation(request)
+            messages.success(request, "E-mail de verificação reenviado com sucesso!")
+        else:
+            messages.info(request, "Este e-mail já foi verificado.")
+    except EmailAddress.DoesNotExist:
+        messages.error(request, "Nenhum e-mail encontrado para este usuário.")
+
+    return redirect('account_email_verification_sent')

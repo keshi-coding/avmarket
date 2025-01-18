@@ -3,27 +3,29 @@
 {% block title %}Cadastre-se{% endblock %}
 
 {% block content %}
-<!DOCTYPE html>
-<html lang="pt-br"> <!-- Define o idioma do documento -->
-<head>
-    <meta charset="UTF-8"> <!-- Define a codificação do texto -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsividade para dispositivos -->
-    <title>Cadastro</title> <!-- Título da página -->
-</head>
-<body>
 <div class="container text-center mt-5">
     <h1>Crie sua Conta</h1>
     <p class="lead mt-3">Já tem uma conta? <a href="{% url 'tela_inicial' %}">Faça login aqui</a>.</p>
 
-    <!-- Exibição de mensagens de feedback -->
-    {% if messages %}
-    <div class="mt-4">
-        {% for message in messages %}
-        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %}">
-            {{ message }}
-        </div>
-        {% endfor %}
+    {% if form.errors %}
+    <div class="alert alert-danger mt-3">
+        <strong>Erros encontrados:</strong>
+        <ul>
+            {% for field, errors in form.errors.items %}
+            <li>{{ field|capfirst }}: {{ errors|join:", " }}</li>
+            {% endfor %}
+        </ul>
     </div>
+    {% endif %}
+
+
+    <!-- Mensagem pós-cadastro (caso exista) -->
+    {% if messages %}
+        <div class="alert alert-success mt-4">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
     {% endif %}
 
     <!-- Formulário de Cadastro -->
@@ -34,24 +36,49 @@
             <!-- Campo: Nome de Usuário (escondido) -->
             <input type="hidden" id="id_username" name="username" value="default_username">
 
+            <!-- Instrução sobre confirmação de e-mail -->
+            <div class="alert alert-info" style="background-color: #f0f8ff; color: #004085; border-color: #cce5ff;">
+                <strong>Atenção:</strong> Após preencher seu e-mail, você precisará digitá-lo novamente para confirmação. Enviaremos um e-mail para validar sua conta. Certifique-se de digitar corretamente!
+            </div>
+
             <!-- Campo: E-mail -->
             <div class="mb-3">
                 <label for="id_email" class="form-label">E-mail</label>
                 <input type="email" id="id_email" name="email" class="form-control" placeholder="Digite seu e-mail" required>
-                <!-- Feedback dinâmico para validação do e-mail -->
                 <small id="email_feedback" class="form-text text-danger"></small>
+            </div>
+
+            <!-- Campo: Confirmar E-mail -->
+            <div class="mb-3">
+                <label for="id_confirm_email" class="form-label">Confirme seu E-mail</label>
+                <input type="email" id="id_confirm_email" name="confirm_email" class="form-control" placeholder="Confirme seu e-mail" required>
+                <small id="confirm_email_feedback" class="form-text text-danger"></small>
+            </div>
+
+            <!-- Instrução sobre a senha -->
+            <div class="mb-3">
+                <div class="alert alert-info" style="background-color: #f0f8ff; color: #004085; border-color: #cce5ff;">
+                    <strong>Instruções:</strong> Sua senha deve ter:
+                    <ul class="text-start" style="margin-left: 1rem;">
+                        <li>No mínimo 8 caracteres.</li>
+                        <li>Pelo menos uma letra.</li>
+                        <li>Pelo menos um número.</li>
+                    </ul>
+                </div>
             </div>
 
             <!-- Campo: Senha -->
             <div class="mb-3">
                 <label for="id_password1" class="form-label">Senha</label>
                 <input type="password" id="id_password1" name="password1" class="form-control" placeholder="Digite sua senha" required>
+                <small id="password_feedback" class="form-text text-danger"></small>
             </div>
 
             <!-- Campo: Confirmar Senha -->
             <div class="mb-3">
                 <label for="id_password2" class="form-label">Confirme a Senha</label>
                 <input type="password" id="id_password2" name="password2" class="form-control" placeholder="Confirme sua senha" required>
+                <small id="confirm_password_feedback" class="form-text text-danger"></small>
             </div>
 
             <!-- Botão de Cadastro -->
@@ -60,55 +87,73 @@
     </div>
 </div>
 
-<!-- Script para validação dinâmica do e-mail -->
+<!-- Script para validação dinâmica -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        // Seleciona os elementos do formulário
         const emailField = document.querySelector("#id_email");
+        const confirmEmailField = document.querySelector("#id_confirm_email");
         const emailFeedback = document.querySelector("#email_feedback");
-        const form = document.querySelector("form");
-        let emailValido = false;  // Variável para controlar se o e-mail é válido
+        const confirmEmailFeedback = document.querySelector("#confirm_email_feedback");
+        const passwordField = document.querySelector("#id_password1");
+        const confirmPasswordField = document.querySelector("#id_password2");
+        const passwordFeedback = document.querySelector("#password_feedback");
+        const confirmPasswordFeedback = document.querySelector("#confirm_password_feedback");
 
-        // Evento "blur" para verificar o e-mail
-        emailField.addEventListener("blur", function () {
-            const email = emailField.value.trim();  // Remove espaços extras do e-mail
+        // Função para validar a correspondência do e-mail
+        function validateEmails() {
+            const email = emailField.value.trim();
+            const confirmEmail = confirmEmailField.value.trim();
 
-            if (email.length > 3) {  // Só verifica se o e-mail tiver mais de 3 caracteres
-                fetch(`/verificar-email/?email=${encodeURIComponent(email)}`)  // Faz a requisição
-                    .then(response => response.json())  // Converte a resposta em JSON
-                    .then(data => {
-                        if (data.existe) {
-                            // E-mail já cadastrado
-                            emailFeedback.textContent = "Este e-mail já está cadastrado. Por favor, use outro.";
-                            emailValido = false;  // Marca como inválido
-                        } else {
-                            // E-mail disponível
-                            emailFeedback.textContent = "";
-                            emailValido = true;  // Marca como válido
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Erro ao verificar o e-mail:", error);
-                        emailFeedback.textContent = "Erro ao verificar o e-mail. Tente novamente mais tarde.";
-                        emailValido = false;  // Em caso de erro, marca como inválido
-                    });
+            if (email && confirmEmail && email !== confirmEmail) {
+                confirmEmailFeedback.textContent = "Os e-mails não correspondem.";
             } else {
-                // Limpa o feedback se o e-mail for muito curto
-                emailFeedback.textContent = "";
-                emailValido = false;
+                confirmEmailFeedback.textContent = "";
             }
-        });
+        }
 
-        // Evento "submit" para bloquear o envio se o e-mail for inválido
-        form.addEventListener("submit", function (event) {
-            if (!emailValido) {
-                event.preventDefault();  // Impede o envio do formulário
-                emailFeedback.textContent = "Este e-mail já está cadastrado. Por favor, use outro.";  // Mesma mensagem
+        // Função para validar o formato da senha
+        function validatePassword(password) {
+            const errors = [];
+
+            if (password.length < 8) {
+                errors.push("A senha deve ter pelo menos 8 caracteres.");
             }
-        });
+            if (!/[a-zA-Z]/.test(password)) {
+                errors.push("A senha deve conter pelo menos uma letra.");
+            }
+            if (!/\d/.test(password)) {
+                errors.push("A senha deve conter pelo menos um número.");
+            }
+
+            return errors;
+        }
+
+        // Função para validar a correspondência das senhas
+        function validatePasswords() {
+            const password = passwordField.value.trim();
+            const confirmPassword = confirmPasswordField.value.trim();
+
+            // Mensagens de erro sobre o formato da senha
+            const errors = validatePassword(password);
+            if (errors.length > 0) {
+                passwordFeedback.innerHTML = errors.join("<br>");
+            } else {
+                passwordFeedback.innerHTML = "";
+            }
+
+            // Mensagens sobre a correspondência da senha
+            if (password && confirmPassword && password !== confirmPassword) {
+                confirmPasswordFeedback.textContent = "As senhas não correspondem.";
+            } else {
+                confirmPasswordFeedback.textContent = "";
+            }
+        }
+
+        // Eventos "input" para validação dinâmica
+        emailField.addEventListener("input", validateEmails);
+        confirmEmailField.addEventListener("input", validateEmails);
+        passwordField.addEventListener("input", validatePasswords);
+        confirmPasswordField.addEventListener("input", validatePasswords);
     });
 </script>
-</body>
-</html>
 {% endblock %}
--

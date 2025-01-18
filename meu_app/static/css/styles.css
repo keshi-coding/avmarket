@@ -1,0 +1,16 @@
+.img-thumbnail {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-card {
+    width: 400px;
+    padding: 10px;
+    text-align: center;
+    margin: 10px auto;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}

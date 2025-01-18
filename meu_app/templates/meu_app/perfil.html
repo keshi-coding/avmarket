@@ -20,6 +20,12 @@
             {% else %}
                 <p>Sem foto de perfil</p>
             {% endif %}
+
+            <!-- Botão Enviar Mensagem -->
+            {% if request.user.email != email %}
+            <a href="{% url 'enviar_mensagem' email %}" class="btn btn-primary mt-3">Enviar Mensagem</a>
+            {% endif %}
+
         </div>
     </div>
 </div>
