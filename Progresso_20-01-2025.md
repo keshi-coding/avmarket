@@ -77,17 +77,13 @@ como validacoes de email, senhas e etc.
 - Tambem conseguimos depois de bater muita a cabeça a estilizar a pagina da mensagem
 de validacao do email padrao do allauth que vai para o usuario logo apos ele se cadastrar.
 
-## Previsoes para a proxima secao de trabalho
-- Precisamos continuar seguindo o teste do processo de cadastro/autenticacao/login de um usuario novo 
-vamos atualizando os templates que vao aparecendo fora do padrao provavelmente todos ainda usando o padrao do allauth 
-que estamos usando do django.
-
-## Atividades de 20-01-2025 - 21:03
-- Hoje estamos mexendo aumentando campos no perfil do usuario, porem a pagina editar_perfil.html nao sei porque o GPT
-nao conseguiu estilizar o CSS como o restante do site, por exemplo o design de editar_perfil.html esta feio torto
-e ao clicar nos inputs ele nao aparece a sombra azul que aparece nos outros inputs do site por exemplo.
-Ainda nao solucionado.
+## Atividades de 20-01-2025 - 22:50
+- Adicionamos varios campos no perfil do usuario, acertamos o design deixamos
+padronizado com o restante do layout os campos de input e etc. 
 
 ## Previsoes para a proxima secao de trabalho
-- Precisamos solucionar o estilo desse editar_perfil.html para que fique igual ao restante do site.
-
+- Precisamos testar se o usuario editar e adicionar os novos dados
+Vai gravar e mostrar no perfil corretamente.
+- Se der tempo, vamos criar uma nova funcionalidade o forum do site
+para criacao de comunidades, sera como a funcao comunidades do facebook entao 
+usar algo que ja tenha pronto para economizar tempo.

@@ -5,15 +5,48 @@
 {% block content %}
 <div class="container mt-5">
     <h1 class="mb-4 text-center">Perfil de {{ username }}</h1>
-    <div class="card mx-auto" style="max-width: 600px;">
+    <div class="card mx-auto" style="max-width: 800px;">
         <div class="card-body">
-            <h5 class="card-title">Informações do Usuário</h5>
-            <p><strong>Nome:</strong> {{ first_name }} {{ last_name }}</p>
-            <p><strong>E-mail:</strong> {{ email }}</p>
-            <p><strong>Bio:</strong> {{ profile.bio|default_if_none:"Não informado" }}</p>
-            <p><strong>Localização:</strong> {{ profile.location|default_if_none:"Não informado" }}</p>
+            <!-- Informações Básicas -->
+            <h5 class="card-title">Informações Básicas</h5>
+            <p><strong>Apelido:</strong> {{ profile.nickname }}</p>
+            <p><strong>Idade:</strong> {{ profile.age|default_if_none:"Não informado" }}</p>
+            <p><strong>Localização:</strong> {{ profile.city|default_if_none:"Não informado" }}, {{ profile.state|default_if_none:"" }} {{ profile.country|default_if_none:"" }}</p>
+            <p><strong>Estado Civil:</strong> {{ profile.marital_status|default_if_none:"Não informado" }}</p>
+
+            <!-- Estilo de Vida -->
+            <h5 class="card-title mt-4">Estilo de Vida</h5>
+            <p><strong>Religião:</strong> {{ profile.religion|default_if_none:"Não informado" }}</p>
+            <p><strong>Idiomas:</strong> {{ profile.languages|default_if_none:"Não informado" }}</p>
+            <p><strong>Fumante:</strong> {{ profile.smoking_status|default_if_none:"Não informado" }}</p>
+            <p><strong>Bebe álcool:</strong> {{ profile.drinking_status|default_if_none:"Não informado" }}</p>
+            <p><strong>Estilo caseiro:</strong>
+                {% if profile.more_homebody %}
+                    Mais caseiro
+                {% elif profile.less_homebody %}
+                    Menos caseiro
+                {% else %}
+                    Não informado
+                {% endif %}
+            </p>
+
+            <!-- Corpo -->
+            <h5 class="card-title mt-4">Detalhes Físicos</h5>
+            <p><strong>Altura:</strong> {{ profile.height|default_if_none:"Não informado" }} cm</p>
+            <p><strong>Peso:</strong> {{ profile.weight|default_if_none:"Não informado" }} kg</p>
+            <p><strong>Tipo físico:</strong> {{ profile.body_type|default_if_none:"Não informado" }}</p>
+
+            <!-- Identidade e Relacionamento -->
+            <h5 class="card-title mt-4">Sobre</h5>
+            <p><strong>Se assume como LGBTQ+:</strong> {{ profile.lgbtq_status|default_if_none:"Não informado" }}</p>
+            <p><strong>Papel em Relacionamentos:</strong> {{ profile.relationship_role|default_if_none:"Não informado" }}</p>
+            <p><strong>Descrição do Papel:</strong> {{ profile.role_description|default_if_none:"Não informado" }}</p>
+            <p><strong>Procurando por:</strong> {{ profile.looking_for|default_if_none:"Não informado" }}</p>
+            <p><strong>Frase de Destaque:</strong> "{{ profile.headline|default_if_none:"Nenhuma frase definida" }}"</p>
         </div>
+
         <div class="card-footer text-center">
+            <!-- Foto de Perfil -->
             <p><strong>Foto de Perfil:</strong></p>
             {% if profile.profile_picture %}
                 <img src="{{ profile.profile_picture.url }}" alt="Foto de Perfil" class="img-thumbnail" width="150">
@@ -23,9 +56,8 @@
 
             <!-- Botão Enviar Mensagem -->
             {% if request.user.email != email %}
-            <a href="{% url 'enviar_mensagem' email %}" class="btn btn-primary mt-3">Enviar Mensagem</a>
+                <a href="{% url 'enviar_mensagem' email %}" class="btn btn-primary mt-3">Enviar Mensagem</a>
             {% endif %}
-
         </div>
     </div>
 </div>

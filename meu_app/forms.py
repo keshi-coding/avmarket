@@ -1,19 +1,31 @@
-from django import forms
-from .models import Profile
 from allauth.account.forms import SignupForm
-from django.core.exceptions import ValidationError
+from django import forms
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+
+from .models import Profile
+
 
 # Formulário para editar o perfil do usuário
 class ProfileForm(forms.ModelForm):
     class Meta:
-        model = Profile  # Modelo associado ao formulário
-        fields = ['bio', 'location', 'profile_picture']  # Campos disponíveis para edição
-        labels = {  # Rótulos personalizados para os campos
-            'bio': 'Biografia',
-            'location': 'Localização',
-            'profile_picture': 'Foto de Perfil',
-        }
+        model = Profile
+        fields = [
+            'nickname', 'birth_date', 'country', 'state', 'city',
+            'marital_status', 'interests', 'profession', 'looking_for',
+            'age_range', 'religion', 'languages', 'smoking_status',
+            'drinking_status', 'more_homebody', 'less_homebody',
+            'body_type', 'height', 'weight', 'lgbtq_status',
+            'relationship_role', 'role_description', 'headline', 'profile_picture'
+        ]
+
+
+def __init__(self, *args, **kwargs):
+    super().__init__(*args, **kwargs)
+    for field in self.fields.values():
+        # Aplica a classe 'form-control' em todos os campos automaticamente
+        field.widget.attrs.update({'class': 'form-control'})
+
 
 # Formulário personalizado para cadastro
 class CustomSignupForm(SignupForm):

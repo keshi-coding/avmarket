@@ -9,9 +9,139 @@
         <div class="card-body">
             <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
                 {% csrf_token %}
+
                 <div class="mb-3">
-                    {{ form.as_p }} <!-- Renderiza os campos do formulário de forma vertical -->
+                    {{ form.nickname.label_tag }}
+                    <input type="text" name="nickname" class="form-control" value="{{ form.nickname.value }}">
                 </div>
+
+                <div class="mb-3">
+                    {{ form.birth_date.label_tag }}
+                    <input type="date" name="birth_date" class="form-control" value="{{ form.birth_date.value }}">
+                </div>
+
+                <div class="mb-3">
+                    {{ form.country.label_tag }}
+                    <input type="text" name="country" class="form-control" value="{{ form.country.value }}">
+                </div>
+
+                <div class="mb-3">
+                    {{ form.state.label_tag }}
+                    <input type="text" name="state" class="form-control" value="{{ form.state.value }}">
+                </div>
+
+                <div class="mb-3">
+                    {{ form.city.label_tag }}
+                    <input type="text" name="city" class="form-control" value="{{ form.city.value }}">
+                </div>
+
+                <div class="mb-3">
+                    {{ form.marital_status.label_tag }}
+                    <input type="text" name="marital_status" class="form-control" value="{{ form.marital_status.value }}">
+                </div>
+
+                <div class="mb-3">
+                    {{ form.interests.label_tag }}
+                    <textarea name="interests" class="form-control">{{ form.interests.value }}</textarea>
+                </div>
+
+                <div class="mb-3">
+                    {{ form.profession.label_tag }}
+                    <input type="text" name="profession" class="form-control" value="{{ form.profession.value }}">
+                </div>
+
+                <div class="mb-3">
+                    {{ form.looking_for.label_tag }}
+                    <input type="text" name="looking_for" class="form-control" value="{{ form.looking_for.value }}">
+                </div>
+
+                <div class="mb-3">
+                    {{ form.age_range.label_tag }}
+                    <input type="text" name="age_range" class="form-control" value="{{ form.age_range.value }}">
+                </div>
+
+                <div class="mb-3">
+                    {{ form.religion.label_tag }}
+                    <input type="text" name="religion" class="form-control" value="{{ form.religion.value }}">
+                </div>
+
+                <div class="mb-3">
+                    {{ form.languages.label_tag }}
+                    <input type="text" name="languages" class="form-control" value="{{ form.languages.value }}">
+                </div>
+
+                <div class="mb-3">
+                    {{ form.smoking_status.label_tag }}
+                    <input type="text" name="smoking_status" class="form-control" value="{{ form.smoking_status.value }}">
+                </div>
+
+                <div class="mb-3">
+                    {{ form.drinking_status.label_tag }}
+                    <input type="text" name="drinking_status" class="form-control" value="{{ form.drinking_status.value }}">
+                </div>
+
+                <div class="mb-3">
+                    {{ form.more_homebody.label_tag }}
+                    <input type="checkbox" name="more_homebody" class="form-check-input" {% if form.more_homebody.value %}checked{% endif %}>
+                </div>
+
+                <div class="mb-3">
+                    {{ form.less_homebody.label_tag }}
+                    <input type="checkbox" name="less_homebody" class="form-check-input" {% if form.less_homebody.value %}checked{% endif %}>
+                </div>
+
+                <div class="mb-3">
+                    {{ form.body_type.label_tag }}
+                    <input type="text" name="body_type" class="form-control" value="{{ form.body_type.value }}">
+                </div>
+
+                <div class="mb-3">
+                    {{ form.height.label_tag }}
+                    <input type="number" name="height" class="form-control" value="{{ form.height.value }}">
+                </div>
+
+                <div class="mb-3">
+                    {{ form.weight.label_tag }}
+                    <input type="number" name="weight" class="form-control" value="{{ form.weight.value }}">
+                </div>
+
+                <!-- Foto de Perfil Atual -->
+                <div class="mb-3 text-center">
+                    {{ form.profile_picture.label }}  <!-- A label será renderizada automaticamente -->
+                    {% if form.instance.profile_picture %}
+                        <div class="mb-2">
+                            <img src="{{ form.instance.profile_picture.url }}" alt="Foto de Perfil Atual" class="img-thumbnail" width="150">
+                        </div>
+                        {% else %}
+                            <p>Sem foto de perfil</p>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    {{ form.photo_album.label_tag }}
+                    <input type="file" name="photo_album" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    {{ form.lgbtq_status.label_tag }}
+                    <input type="text" name="lgbtq_status" class="form-control" value="{{ form.lgbtq_status.value }}">
+                </div>
+
+                <div class="mb-3">
+                    {{ form.relationship_role.label_tag }}
+                    <input type="text" name="relationship_role" class="form-control" value="{{ form.relationship_role.value }}">
+                </div>
+
+                <div class="mb-3">
+                    {{ form.role_description.label_tag }}
+                    <textarea name="role_description" class="form-control">{{ form.role_description.value }}</textarea>
+                </div>
+
+                <div class="mb-3">
+                    {{ form.headline.label_tag }}
+                    <input type="text" name="headline" class="form-control" value="{{ form.headline.value }}">
+                </div>
+
                 <div class="d-flex justify-content-between">
                     <button type="submit" class="btn btn-primary">Salvar Alterações</button>
                     <a href="{% url 'perfil' %}" class="btn btn-secondary">Voltar</a>
