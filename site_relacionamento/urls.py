@@ -4,7 +4,7 @@ from django.contrib import admin  # Importa o painel de administração do Djang
 from django.urls import path, include  # Ferramentas para criar rotas no Django
 
 from meu_app.views import home, perfil, editar_perfil, tela_inicial, verificar_email, lista_mensagens, listar_usuarios, \
-    enviar_mensagem, resend_verification_email
+    enviar_mensagem, resend_verification_email, comunidades, entrar_comunidade, detalhes_comunidade
 
 # Importa as views específicas do app 'meu_app'
 urlpatterns = [
@@ -20,6 +20,9 @@ urlpatterns = [
     path('perfil/<str:email>/', perfil, name="perfil_outro"),
     path('mensagem/enviar/<str:email>/', enviar_mensagem, name='enviar_mensagem'),
     path('accounts/resend-verification-email/', resend_verification_email, name='account_resend_email'),
+    path('comunidades/', comunidades, name='comunidades'),
+    path('comunidades/entrar/<int:group_id>/', entrar_comunidade, name='entrar_comunidade'),
+    path('comunidades/<int:group_id>/', detalhes_comunidade, name='detalhes_comunidade'),
 ]
 
 # Adiciona rotas para servir arquivos de mídia no ambiente de desenvolvimento

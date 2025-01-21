@@ -47,6 +47,12 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+
+    # django-groups-manager
+    'groups_manager',
+
+    # django channels -redis
+    'channels',
 ]
 
 # django-allauth requer a identificação de qual site
@@ -87,6 +93,19 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'site_relacionamento.wsgi.application'
+ASGI_APPLICATION = 'site_relacionamento.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
+
+
+
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
@@ -161,8 +180,10 @@ ACCOUNT_EMAIL_REQUIRED = True  # E-mail obrigatório
 ACCOUNT_SIGNUP_REDIRECT_URL = "/"  # Redirecionamento após cadastro
 ACCOUNT_UNIQUE_EMAIL = True # Exige e-mail unico
 # Número de tentativas antes do bloqueio
-ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 100
-ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 1
+ACCOUNT_RATE_LIMITS = {
+    'login_failed': '5/m',  # Máximo de 5 tentativas por minuto para logins falhos
+}
+
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',  # Backend padrão do Django

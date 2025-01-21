@@ -5,8 +5,62 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
-from .models import Mensagem, Profile
+from .models import Mensagem, Profile, Post
+from groups_manager.models import Group, Member # Modelo de comunidades
 
+
+@login_required
+def detalhes_comunidade(request, group_id):
+    comunidade = get_object_or_404(Group, id=group_id)
+    membros = comunidade.members
+    posts = comunidade.posts.order_by('-criado_em')  # Exibe postagens mais recentes primeiro
+
+    # Processar novo post
+    if request.method == 'POST':
+        conteudo = request.POST.get('conteudo')
+        if conteudo:
+            Post.objects.create(comunidade=comunidade, autor=request.user, conteudo=conteudo)
+            messages.success(request, "Postagem criada com sucesso!")
+            return redirect('detalhes_comunidade', group_id=group_id)
+        else:
+            messages.error(request, "O conteúdo do post não pode estar vazio.")
+
+    return render(request, 'meu_app/detalhes_comunidade.html', {
+        'comunidade': comunidade,
+        'membros': membros,
+        'posts': posts
+    })
+
+@login_required
+def entrar_comunidade(request, group_id):
+    """
+    Permite que o usuário entre em uma comunidade.
+    """
+    comunidade = get_object_or_404(Group, id=group_id)
+
+    # Criar ou obter o membro associado ao usuário
+    membro, criado = Member.objects.get_or_create(django_user=request.user)
+
+    # Verificar se o membro já está na comunidade antes de adicionar
+    if membro not in comunidade.members:
+        try:
+            comunidade.add_member(membro)  # Adicionar o membro à comunidade
+            messages.success(request, f"Você entrou na comunidade {comunidade.name}!")
+        except Exception as e:
+            messages.error(request, f"Erro ao entrar na comunidade: {str(e)}")
+    else:
+        messages.info(request, "Você já faz parte dessa comunidade.")
+
+    return redirect('comunidades')
+
+
+@login_required
+def comunidades(request):
+    """
+    Exibe a pagina principal das comunidades
+    """
+    comunidades = Group.objects.filter(parent=None) # Busca todas as comunidades
+    return render(request, 'meu_app/comunidades.html', {'comunidades': comunidades})
 
 @login_required
 def home(request):

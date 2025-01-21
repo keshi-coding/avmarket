@@ -1,5 +1,16 @@
 from django.contrib.auth.models import User  # Importa o modelo User, que gerencia usuários no Django.
 from django.db import models  # Importa os utilitários para criar modelos no Django.
+from groups_manager.models import Group
+
+# Armazenar postagens feitas pelos membros
+class Post(models.Model):
+    comunidade = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='posts')
+    autor = models.ForeignKey(User, on_delete=models.CASCADE)
+    conteudo = models.TextField()
+    criado_em = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Post de {self.autor.username} na comunidade {self.comunidade.name}"
 
 # Modelo de Perfil para estender as informações do usuário padrão
 class Profile(models.Model):

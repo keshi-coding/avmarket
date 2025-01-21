@@ -81,9 +81,17 @@ de validacao do email padrao do allauth que vai para o usuario logo apos ele se 
 - Adicionamos varios campos no perfil do usuario, acertamos o design deixamos
 padronizado com o restante do layout os campos de input e etc. 
 
+## Atividades de 21-01-2025 - 22:00
+- Usamos o django-groups e instalamos, configuramos ja temos uma especie de comunidade
+eh claro que precisa ser melhorado, mas ja esta funcionando a lista de membros e postagens.
+- Demos inicio na implantacao e configuracao de chat online entre os usuarios
+com o django-channels e redis...ja instalamos o channels -redis no pip
+- Instalei o docker desktop com sucesso, fizemos login e demos o comando
+"docker ps" no terminal do pycharm e ele mostrou que o container Redis esta funcionando e mapeado
+na minha maquina na porta 6379.
+ 
 ## Previsoes para a proxima secao de trabalho
-- Precisamos testar se o usuario editar e adicionar os novos dados
-Vai gravar e mostrar no perfil corretamente.
-- Se der tempo, vamos criar uma nova funcionalidade o forum do site
-para criacao de comunidades, sera como a funcao comunidades do facebook entao 
-usar algo que ja tenha pronto para economizar tempo.
+- como o container redis ja esta mapeado e funcionando na porta 6379 da minha maquina
+temos que seguir para a integracao do django channels com o redis, conforme voce pode
+verificar no arquivo de codigos, ja criei o arquivo asgi.py, ja mexi no settings e etc.
+- precisamos seguir daqui em diante.

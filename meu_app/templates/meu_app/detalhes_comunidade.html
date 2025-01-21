@@ -1,0 +1,42 @@
+{% extends "meu_app/base.html" %}
+
+{% block title %}{{ comunidade.name }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">{{ comunidade.name }}</h1>
+    <p class="text-center">{{ comunidade.description }}</p>
+
+    <h3>Membros</h3>
+    <ul>
+        {% for membro in membros %}
+        <li>{{ membro.django_user.username }}</li>
+        {% empty %}
+        <li>Nenhum membro nesta comunidade.</li>
+        {% endfor %}
+    </ul>
+
+    <hr>
+
+    <h3>Postagens</h3>
+    <form method="post">
+        {% csrf_token %}
+        <textarea name="conteudo" class="form-control mb-3" rows="3" placeholder="Escreva algo..."></textarea>
+        <button type="submit" class="btn btn-primary">Postar</button>
+    </form>
+
+    <div class="mt-4">
+        {% for post in posts %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">{{ post.autor.username }}</h5>
+                <p class="card-text">{{ post.conteudo }}</p>
+                <p class="text-muted"><small>{{ post.criado_em }}</small></p>
+            </div>
+        </div>
+        {% empty %}
+        <p>Nenhuma postagem nesta comunidade ainda.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
