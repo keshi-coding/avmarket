@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <h1>Bem-vindo, {{ user.username }}</h1>
+    <p>{{ user.profile.bio }}</p>
+{% endblock %}

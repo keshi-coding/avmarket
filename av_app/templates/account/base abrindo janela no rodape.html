@@ -1,0 +1,84 @@
+document.addEventListener("DOMContentLoaded", function() {
+    let messengerIcon = document.getElementById("messenger-icon");
+    let closeButton = document.getElementById("close-messenger");
+    let sidebar = document.getElementById("messenger-sidebar");
+    let chatList = document.getElementById("chat-list");
+    let chatWindows = {}; // Guarda janelas abertas
+
+    let chats = [
+        { username: "Fulano_A" },
+        { username: "Fulano_B" },
+        { username: "Fulano_C" }
+    ];
+
+    if (messengerIcon && closeButton && sidebar) {
+        messengerIcon.addEventListener("click", function() {
+            sidebar.style.display = "block";
+        });
+
+        closeButton.addEventListener("click", function() {
+            sidebar.style.display = "none";
+        });
+    } else {
+        console.error("Erro: Algum elemento não foi encontrado.");
+    }
+
+    // Criar lista de usuários clicáveis
+    chatList.innerHTML = "";
+    chats.forEach(chat => {
+        let userElement = document.createElement("p");
+        userElement.textContent = chat.username;
+        userElement.style.cursor = "pointer";
+        userElement.addEventListener("click", function() {
+            abrirJanelaChat(chat.username);
+        });
+        chatList.appendChild(userElement);
+    });
+
+    function abrirJanelaChat(username) {
+        if (chatWindows[username]) return; // Se já estiver aberto, não cria outro
+
+        let chatBox = document.createElement("div");
+        chatBox.classList.add("chat-window");
+        chatBox.innerHTML = `
+            <div class="chat-header">
+                <span>${username}</span>
+                <button class="minimize-chat">−</button>
+                <button class="close-chat">×</button>
+            </div>
+            <div class="chat-body">
+                <p>Conversa com ${username}</p>
+            </div>
+            <div class="chat-footer">
+                <input type="text" placeholder="Digite uma mensagem..." class="chat-input">
+            </div>
+        `;
+
+        document.body.appendChild(chatBox);
+        chatWindows[username] = chatBox;
+
+        // Botão de minimizar
+        chatBox.querySelector(".minimize-chat").addEventListener("click", function() {
+            let body = chatBox.querySelector(".chat-body");
+            body.style.display = (body.style.display === "none") ? "block" : "none";
+        });
+
+        // Botão de fechar
+        chatBox.querySelector(".close-chat").addEventListener("click", function() {
+            chatBox.remove();
+            delete chatWindows[username];
+        });
+
+        organizarJanelas();
+    }
+
+    function organizarJanelas() {
+        let chatBoxes = document.querySelectorAll(".chat-window");
+        let posicao = 0;
+        chatBoxes.forEach(chat => {
+            chat.style.right = `${20 + (posicao * 310)}px`;
+            chat.style.bottom = "0";
+            posicao++;
+        });
+    }
+});

@@ -4,7 +4,7 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/relacionamento" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.13 (site-relacionamento)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.13 (av)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PyDocumentationSettings">

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Enviar Mensagem{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- Título da página -->
+    <h2 class="text-center">Enviar Mensagem para {{ destinatario.first_name }} {{ destinatario.last_name }}</h2>
+    <!-- Formulário para enviar a mensagem -->
+    <form method="post">
+        {% csrf_token %} <!-- Token CSRF para proteger contra ataques CSRF -->
+        <div class="form-group">
+            <!-- Campo de texto para a mensagem -->
+            <textarea name="mensagem"
+                      class="form-control"
+                      rows="5"
+                      placeholder="Escreva sua mensagem..."
+                      required></textarea>
+            <!-- 'required' garante que o campo não seja enviado vazio -->
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Enviar</button>
+    </form>
+</div>
+{% endblock %}
