@@ -5,14 +5,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
-from .models import Mensagem, Profile, Post
+from .models import Profile, Post
 from groups_manager.models import Group, Member # Modelo de comunidades
 from django.shortcuts import render
-
-def chat_view(request, username):
-    return render(request, 'chat.html', {
-        'username': username
-    })
 
 @login_required
 def detalhes_comunidade(request, group_id):
@@ -146,21 +141,6 @@ def signup_view(request):
         form = SignupForm()
 
     return render(request, 'account/signup.html', {'form': form})
-
-
-@login_required
-def lista_mensagens(request):
-    """
-    Lista as mensagens enviadas e recebidas pelo usuário logado.
-    """
-    mensagens_enviadas = Mensagem.objects.filter(remetente=request.user).order_by('-timestamp')
-    mensagens_recebidas = Mensagem.objects.filter(destinatario=request.user).order_by('-timestamp')
-
-    return render(request, 'lista_mensagens.html', {
-        'mensagens_enviadas': mensagens_enviadas,
-        'mensagens_recebidas': mensagens_recebidas,
-    })
-
 
 @login_required
 def listar_usuarios(request):

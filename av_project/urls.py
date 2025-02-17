@@ -5,7 +5,7 @@ from django.urls import path, include  # Ferramentas para criar rotas no Django
 
 from av_app import views  # Importa todas as views do app principal
 from av_app.views import (
-    home, perfil, editar_perfil, tela_inicial, verificar_email, lista_mensagens, listar_usuarios,
+    home, perfil, editar_perfil, tela_inicial, verificar_email, listar_usuarios,
     resend_verification_email, comunidades, entrar_comunidade, detalhes_comunidade
 )
 
@@ -32,9 +32,6 @@ urlpatterns = [
     # Verificação se um e-mail já existe no sistema
     path('verificar-email/', verificar_email, name='verificar_email'),
 
-    # Listagem de mensagens enviadas e recebidas
-    path('mensagens/', lista_mensagens, name='lista_mensagens'),
-
     # Lista de usuários cadastrados
     path('usuarios/', listar_usuarios, name='listar_usuarios'),
 
@@ -45,9 +42,6 @@ urlpatterns = [
     path('comunidades/', comunidades, name='comunidades'),
     path('comunidades/entrar/<int:group_id>/', entrar_comunidade, name='entrar_comunidade'),
     path('comunidades/<int:group_id>/', detalhes_comunidade, name='detalhes_comunidade'),
-
-    # Chat entre usuários (agora usando o username real do banco)
-    path('chat/<str:username>/', views.chat_view, name='chat'),
 ]
 
 # Servir arquivos de mídia e estáticos no ambiente de desenvolvimento

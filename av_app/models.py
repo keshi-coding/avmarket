@@ -2,20 +2,6 @@ from django.contrib.auth.models import User  # Importa o modelo User, que gerenc
 from django.db import models  # Importa os utilitários para criar modelos no Django.
 from groups_manager.models import Group
 
-# Armazenar lista de conversas recentes carregando mais rapido sem precisar buscar todas as mensagens do banco.
-class ChatRecentes(models.Model):
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name="chats_recentes")
-    contato = models.ForeignKey(User, on_delete=models.CASCADE, related_name="contatos_recentes")
-    ultima_mensagem = models.DateTimeField(auto_now=True)  # Atualiza quando uma mensagem é enviada
-
-    class Meta:
-        unique_together = ('usuario', 'contato')  # Evita duplicatas
-        ordering = ['-ultima_mensagem']  # Ordena pelas conversas mais recentes
-
-    def __str__(self):
-        return f"{self.usuario.username} ↔ {self.contato.username}"
-
-
 # Armazenar postagens feitas pelos membros
 class Post(models.Model):
     comunidade = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='posts')
@@ -128,43 +114,3 @@ class Profile(models.Model):
             today = date.today()
             return today.year - self.birth_date.year - ((today.month, today.day) < (self.birth_date.month, self.birth_date.day))
         return None
-
-
-# Modelo de Mensagens para armazenar conversas entre usuários
-class Mensagem(models.Model):
-    remetente = models.ForeignKey(User, on_delete=models.CASCADE, related_name='mensagens_enviadas')
-    # Relaciona a mensagem ao remetente. `related_name` permite acessar as mensagens enviadas via `user.mensagens_enviadas`.
-
-    destinatario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='mensagens_recebidas')
-    # Relaciona a mensagem ao destinatário. `related_name` permite acessar as mensagens recebidas via `user.mensagens_recebidas`.
-
-    conteudo = models.TextField()
-    # Armazena o conteúdo da mensagem.
-
-    timestamp = models.DateTimeField(auto_now_add=True)
-    # Registra automaticamente a data e hora em que a mensagem foi criada.
-
-    lido = models.BooleanField(default=False)
-    # Indica se a mensagem foi lida pelo destinatário. Por padrão, é definida como `False`.
-
-    def __str__(self):
-        return f"Mensagem de {self.remetente} para {self.destinatario} - {self.timestamp}"
-    # Define a representação em string do objeto Mensagem, exibindo o remetente, destinatário e data/hora.
-
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)  # Salva a mensagem normalmente
-
-        # Atualiza ou cria um registro no ChatRecentes para o remetente
-        ChatRecentes.objects.update_or_create(
-            usuario=self.remetente,
-            contato=self.destinatario,
-            defaults={'ultima_mensagem': self.timestamp}
-        )
-
-        # Atualiza ou cria um registro no ChatRecentes para o destinatário
-        ChatRecentes.objects.update_or_create(
-            usuario=self.destinatario,
-            contato=self.remetente,
-            defaults={'ultima_mensagem': self.timestamp}
-        )
-
